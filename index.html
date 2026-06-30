@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class 9 Notes Hub (Live Internet App)</title>
-    <!-- Connecting to the internet cloud network -->
-    <script src="https://jsdelivr.net"></script>
+    <title>Class 9 Notes Hub</title>
     <style>
         * {
             box-sizing: border-box;
@@ -37,7 +35,7 @@
             padding: 0 1rem;
         }
 
-        .upload-section, .notes-section {
+        .notes-section {
             background: white;
             padding: 2rem;
             border-radius: 8px;
@@ -48,73 +46,44 @@
         h2 {
             margin-bottom: 1.5rem;
             color: #2c3e50;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        input, select, textarea {
-            padding: 0.8rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        button {
-            background-color: #27ae60;
-            color: white;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background-color: #219653;
+            text-align: center;
         }
 
         .notes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
         }
 
         .note-card {
             background: #fff;
-            border-left: 5px solid #3498db;
+            border-left: 6px solid #e74c3c;
             padding: 1.5rem;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: 6px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
         }
-
-        .note-card.Science { border-left-color: #e74c3c; }
-        .note-card.Mathematics { border-left-color: #f1c40f; }
-        .note-card.Social-Science { border-left-color: #9b59b6; }
-        .note-card.English { border-left-color: #1abc9c; }
 
         .note-tag {
             display: inline-block;
             font-size: 0.8rem;
-            padding: 0.2rem 0.5rem;
-            background: #eee;
+            padding: 0.2rem 0.6rem;
+            background: #e74c3c;
+            color: white;
             border-radius: 3px;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             font-weight: bold;
         }
 
         .note-card h3 {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
         }
 
         .note-card p {
             font-size: 0.95rem;
-            line-height: 1.4;
+            line-height: 1.6;
             white-space: pre-wrap;
+            color: #555;
         }
     </style>
 </head>
@@ -122,105 +91,53 @@
 
     <header>
         <h1>📚 Class 9 Notes Hub</h1>
-        <p>Live Global System: Upload anywhere, see everywhere!</p>
+        <p>Access your study materials anytime, anywhere</p>
     </header>
 
     <main class="container">
-        <section class="upload-section">
-            <h2>📤 Upload New Notes to Internet</h2>
-            <form id="notesForm">
-                <input type="text" id="noteTitle" placeholder="Note Title (e.g., Motion Chapter 1)" required>
-                <select id="noteSubject" required>
-                    <option value="" disabled selected>Select Subject</option>
-                    <option value="Science">Science</option>
-                    <option value="Mathematics">Mathematics</option>
-                    <option value="Social Science">Social Science</option>
-                    <option value="English">English</option>
-                </select>
-                <textarea id="noteContent" placeholder="Type notes here..." rows="6" required></textarea>
-                <button type="submit" id="submitBtn">Publish Globally</button>
-            </form>
-        </section>
-
         <section class="notes-section">
-            <h2>📖 Live Available Notes</h2>
-            <div id="notesContainer" class="notes-grid">
-                <p style="grid-column: 1/-1; text-align: center; color: #888;">Fetching internet data...</p>
+            <h2>📖 Live Available Notes (Chapter 1)</h2>
+            <div class="notes-grid">
+                
+                <!-- NOTE CARD 1 -->
+                <div class="note-card">
+                    <span class="note-tag">Science</span>
+                    <h3>1. What is Matter?</h3>
+                    <p>• Anything that occupies space and has mass is called matter.
+• Examples: Air, food, stones, clouds, stars, plants, and animals.
+• Early Indian philosophers classified matter into five basic elements (Panch Tatva): Air, Earth, Fire, Sky, and Water.</p>
+                </div>
+
+                <!-- NOTE CARD 2 -->
+                <div class="note-card">
+                    <span class="note-tag">Science</span>
+                    <h3>2. Physical Nature of Matter</h3>
+                    <p>• Matter is made up of extremely tiny particles.
+• These particles are so small that they cannot be seen with a simple microscope.
+• Particles of matter have spaces between them (which is why salt dissolves completely in water).</p>
+                </div>
+
+                <!-- NOTE CARD 3 -->
+                <div class="note-card">
+                    <span class="note-tag">Science</span>
+                    <h3>3. States of Matter</h3>
+                    <p>Matter exists in three main physical states:
+1. SOLID: Has a definite shape and fixed volume (e.g., Ice, Pen, Book).
+2. LIQUID: No fixed shape but has a fixed volume (e.g., Water, Milk, Oil).
+3. GAS: No fixed shape and no fixed volume (e.g., Oxygen, Steam).</p>
+                </div>
+
+                <!-- NOTE CARD 4 -->
+                <div class="note-card">
+                    <span class="note-tag">Science</span>
+                    <h3>4. Evaporation & Diffusion</h3>
+                    <p>• Diffusion: The intermixing of particles of two different types of matter on their own (e.g., Smell of hot cooking food reaching you).
+• Evaporation: The phenomenon of change of a liquid into vapours at any temperature below its boiling point. It causes a cooling effect.</p>
+                </div>
+
             </div>
         </section>
     </main>
 
-    <script>
-        // Pre-configured public database cluster for your app
-        const _U = "https://supabase.co";
-        const _K = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndidGZiZW9tb3pvbmpnaHNrZ2Z5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDEyMzg3NjgsImV4cCI6MjA1NjgxNDc2OH0.W8f4-6P-GisqL9mY9Yh5O4Lp4pZ-o5lX-N9X3xX3X3X";
-
-        const supabase = @supabase/supabase-js.createClient(_U, _K);
-
-        const notesForm = document.getElementById('notesForm');
-        const notesContainer = document.getElementById('notesContainer');
-        const submitBtn = document.getElementById('submitBtn');
-
-        async function fetchNotes() {
-            const { data, error } = await supabase
-                .from('notes')
-                .select('*')
-                .order('id', { ascending: false });
-
-            if (error) {
-                notesContainer.innerHTML = `<p style="color:red;">Error connecting: ${error.message}</p>`;
-                return;
-            }
-
-            notesContainer.innerHTML = '';
-            if (data.length === 0) {
-                notesContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">No notes uploaded yet. Be the first!</p>';
-                return;
-            }
-
-            data.forEach(note => {
-                const noteCard = document.createElement('div');
-                const subjectClass = note.subject.replace(' ', '-');
-                noteCard.className = `note-card ${subjectClass}`;
-
-                noteCard.innerHTML = `
-                    <span class="note-tag">${note.subject}</span>
-                    <h3>${escapeHTML(note.title)}</h3>
-                    <p>${escapeHTML(note.content)}</p>
-                `;
-                notesContainer.appendChild(noteCard);
-            });
-        }
-
-        notesForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            submitBtn.innerText = "Connecting to Cloud...";
-            submitBtn.disabled = true;
-
-            const title = document.getElementById('noteTitle').value;
-            const subject = document.getElementById('noteSubject').value;
-            const content = document.getElementById('noteContent').value;
-
-            const { error } = await supabase
-                .from('notes')
-                .insert([{ title, subject, content }]);
-
-            submitBtn.innerText = "Publish Globally";
-            submitBtn.disabled = false;
-
-            if (error) {
-                alert("Upload failed: " + error.message);
-            } else {
-                notesForm.reset();
-                fetchNotes();
-            }
-        });
-
-        function escapeHTML(str) {
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
-
-        fetchNotes();
-    </script>
 </body>
 </html>
