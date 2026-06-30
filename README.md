@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 9 Notes Hub</title>
+    <style>
+        /* --- STYLING (CSS) --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .upload-section, .notes-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        input, select, textarea {
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #27ae60;
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #219653;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .note-card {
+            background: #fff;
+            border-left: 5px solid #3498db;
+            padding: 1.5rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1rem;
+        }
+
+        /* Subject Border Colors */
+        .note-card.Science { border-left-color: #e74c3c; }
+        .note-card.Mathematics { border-left-color: #f1c40f; }
+        .note-card.Social-Science { border-left-color: #9b59b6; }
+        .note-card.English { border-left-color: #1abc9c; }
+
+        .note-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            background: #eee;
+            border-radius: 3px;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .note-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .note-card p {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- --- STRUCTURE (HTML) --- -->
+    <header>
+        <h1>📚 Class 9 Notes Hub</h1>
+        <p>Share and access your study materials easily</p>
+    </header>
+
+    <main class="container">
+        <!-- Upload Form Section -->
+        <section class="upload-section">
+            <h2>📤 Upload New Notes</h2>
+            <form id="notesForm">
+                <input type="text" id="noteTitle" placeholder="Note Title (e.g., Force and Laws of Motion)" required>
+                <select id="noteSubject" required>
+                    <option value="" disabled selected>Select Subject</option>
+                    <option value="Science">Science</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Social Science">Social Science</option>
+                    <option value="English">English</option>
+                </select>
+                <textarea id="noteContent" placeholder="Type or paste your notes text content here..." rows="6" required></textarea>
+                <button type="submit">Publish Notes</button>
+            </form>
+        </section>
+
+        <!-- Display Grid Section -->
+        <section class="notes-section">
+            <h2>📖 Available Notes</h2>
+            <div id="notesContainer" class="notes-grid">
+                
+                <!-- [PERMANENT NOTE 1] - Everyone can see this -->
+                <div class="note-card Science">
+                    <span class="note-tag">Science</span>
+                    <h3>Chapter 1: Matter in Our Surroundings</h3>
+                    <p>• Everything in this universe is made up of material called matter.
+• Matter has both mass and volume.
+• Particles of matter are very small, have spaces between them, and are continuously moving.</p>
+                </div>
+
+                <!-- [PERMANENT NOTE 2] - Everyone can see this -->
+                <div class="note-card Mathematics">
+                    <span class="note-tag">Mathematics</span>
+                    <h3>Chapter 1: Number Systems</h3>
+                    <p>• Natural Numbers: Counting numbers starting from 1, 2, 3...
+• Whole Numbers: Natural numbers along with zero (0, 1, 2, 3...)
+• Rational Numbers: Numbers that can be written in the form p/q, where q is not equal to 0.</p>
+                </div>
+
+                <!-- Live dynamic notes will appear below this line -->
+            </div>
+        </section>
+    </main>
+
+    <!-- --- LOGIC & STORAGE (JavaScript) --- -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const notesForm = document.getElementById('notesForm');
+            const notesContainer = document.getElementById('notesContainer');
+
+            // Load temporary local notes from browser memory
+            let localNotes = JSON.parse(localStorage.getItem('class9notes')) || [];
+
+            // Function to display temporary notes alongside permanent ones
+            function displayLocalNotes() {
+                // Remove any previously added temporary notes to avoid duplicates
+                const dynamicCards = notesContainer.querySelectorAll('.dynamic-note');
+                dynamicCards.forEach(card => card.remove());
+
+                localNotes.forEach(note => {
+                    const noteCard = document.createElement('div');
+                    const subjectClass = note.subject.replace(' ', '-');
+                    noteCard.className = `note-card ${subjectClass} dynamic-note`;
+
+                    noteCard.innerHTML = `
+                        <span class="note-tag">${note.subject}</span>
+                        <h3>${escapeHTML(note.title)}</h3>
+                        <p>${escapeHTML(note.content)}</p>
+                    `;
+                    // Adds new temporary notes at the bottom of the existing list
+                    notesContainer.appendChild(noteCard);
+                });
+            }
+
+            // Handle submission form
+            notesForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const title = document.getElementById('noteTitle').value;
+                const subject = document.getElementById('noteSubject').value;
+                const content = document.getElementById('noteContent').value;
+
+                const newNote = { title, subject, content };
+                localNotes.unshift(newNote);
+
+                localStorage.setItem('class9notes', JSON.stringify(localNotes));
+                
+                displayLocalNotes();
+                notesForm.reset();
+            });
+
+            function escapeHTML(str) {
+                return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            }
+
+            // Initialize local notes display
+            displayLocalNotes();
+        });
+    </script>
+</body>
+</html>
